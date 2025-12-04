@@ -1,2 +1,6 @@
 .env
 bot_cache
+__pycache__
+lead.db
+test.ipynb
+test.py
