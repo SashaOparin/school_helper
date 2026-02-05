@@ -9,6 +9,33 @@ async def create_tables(app):
                             username TEXT NULL, 
                             class INTEGER NULL,
                             created_at DATETIME DEFAULT CURRENT_TIMESTAMP)""")
+    
 
+    await conn.execute("""CREATE TABLE IF NOT EXISTS victorins(
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            topic TEXT, 
+                            class INTEGER,
+                            created_at DATETIME DEFAULT CURRENT_TIMESTAMP)""")
+    
+    await conn.execute("""CREATE TABLE IF NOT EXISTS questions(
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        question TEXT , 
+                        vict_id INTEGER,
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                       
+                       FOREIGN KEY (vict_id) REFERENCES victorins(id) ON DELETE CASCADE)""")
+
+    await conn.execute("""CREATE TABLE IF NOT EXISTS answers(
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        text TEXT , 
+                        quest_id INTEGER,
+                        correct INTEGER,
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                       
+                        FOREIGN KEY (quest_id) REFERENCES questions(id) ON DELETE CASCADE)""")   
     await conn.commit()
     await conn.close()
+
+
+
+    

@@ -76,7 +76,10 @@ if __name__ == "__main__":
             GET_VICTOR_ANSWER: [
                 CallbackQueryHandler(get_ansver),#кнопчки
             ],
-            SETTINGS: [CallbackQueryHandler(change_class)],
+            SETTINGS: [
+                CallbackQueryHandler(change_class, pattern="change_class"),
+                CallbackQueryHandler(back, pattern="back"),
+            ],
         },
         fallbacks=[CommandHandler("start", start)],  # то что будет всегда работать
         persistent=True,
