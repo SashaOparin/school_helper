@@ -88,6 +88,6 @@ if __name__ == "__main__":
         persistent=True,
         name="conv_hand",
     )
-
+    print('Hello')
     application.add_handler(conv_handler)
     application.run_polling()
