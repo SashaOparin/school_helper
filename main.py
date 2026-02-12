@@ -29,7 +29,7 @@ from config.states import (
     GET_VICTOR_TOPIC,
     SETTINGS,
     GET_VICTOR_ANSWER,
-    TREKING,
+    
 )
 from db.database import create_tables
 
