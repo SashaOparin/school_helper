@@ -40,6 +40,7 @@ async def main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("Спросить у Ассистента", callback_data="gpt_ask")],
         [InlineKeyboardButton("Викторина", callback_data="victor")],
         [InlineKeyboardButton("Настройки", callback_data="settings")],
+        [InlineKeyboardButton("Подготовка к экзамену", callback_data="settings")],
     ]
     markup = InlineKeyboardMarkup(keyboard)
     query = update.callback_query

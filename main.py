@@ -29,6 +29,7 @@ from config.states import (
     GET_VICTOR_TOPIC,
     SETTINGS,
     GET_VICTOR_ANSWER,
+    TREKING,
 )
 from db.database import create_tables
 
@@ -78,8 +79,10 @@ if __name__ == "__main__":
             ],
             SETTINGS: [
                 CallbackQueryHandler(change_class, pattern="change_class"),
-                CallbackQueryHandler(back, pattern="back"),
-            ],
+                CallbackQueryHandler(back, pattern="back"),]
+            # TREKING: [ 
+                
+            # ],
         },
         fallbacks=[CommandHandler("start", start)],  # то что будет всегда работать
         persistent=True,
