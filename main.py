@@ -21,6 +21,8 @@ from handlers.gpt_handlers import start_gpt, ask_gpt
 
 from handlers.victorina_handlers import victor_asver, victor_topic, back, get_ansver
 
+from handlers.trening_handlers import start_kontrol,hp_kontrol, handle_text_answer
+from handlers.whisper import handle_voice_answer
 
 from config.states import (
     GET_CLASS,
@@ -29,7 +31,8 @@ from config.states import (
     GET_VICTOR_TOPIC,
     SETTINGS,
     GET_VICTOR_ANSWER,
-    
+    KONTROL,
+    GET_KONTROL_ANSWER
 )
 from db.database import create_tables
 
@@ -65,6 +68,7 @@ if __name__ == "__main__":
                 CallbackQueryHandler(start_gpt, pattern="gpt_ask"),
                 CallbackQueryHandler(victor_topic, pattern="victor"),
                 CallbackQueryHandler(settings, pattern="settings"),
+                CallbackQueryHandler(start_kontrol, pattern="kontrol"),
             ],
             GPT: [
                 MessageHandler(filters.TEXT & ~filters.COMMAND, ask_gpt),
@@ -75,19 +79,23 @@ if __name__ == "__main__":
                 CallbackQueryHandler(back, pattern="back"),
             ],
             GET_VICTOR_ANSWER: [
-                CallbackQueryHandler(get_ansver),#кнопчки
+                CallbackQueryHandler(get_ansver),  # кнопчки
             ],
             SETTINGS: [
                 CallbackQueryHandler(change_class, pattern="change_class"),
-                CallbackQueryHandler(back, pattern="back"),]
-            # TREKING: [ 
-                
-            # ],
+                CallbackQueryHandler(back, pattern="back"),
+            ],
+            KONTROL: [
+                CallbackQueryHandler(back, pattern="back"),
+                MessageHandler(filters.TEXT & ~filters.COMMAND, hp_kontrol),
+            ],
+            GET_KONTROL_ANSWER:[
+                MessageHandler(filters.VOICE, handle_voice_answer), MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_answer)
+            ]
         },
         fallbacks=[CommandHandler("start", start)],  # то что будет всегда работать
         persistent=True,
         name="conv_hand",
     )
-    print('Hello')
     application.add_handler(conv_handler)
     application.run_polling()

@@ -1,4 +1,5 @@
 .env
+.env_prod
 bot_cache
 __pycache__
 lead.db

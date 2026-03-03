@@ -7,7 +7,7 @@ from telegram import (
 from telegram.ext import (
     ContextTypes,
 )
-from config.states import GET_CLASS, MAIN_MENU, SETTINGS
+from config.states import GET_CLASS, MAIN_MENU, SETTINGS, KONTROL
 
 # from ..config.states import GET_CLASS, MAIN_MENU, SETTINGS
 from db.users_crud import update_user
@@ -40,11 +40,14 @@ async def main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("Спросить у Ассистента", callback_data="gpt_ask")],
         [InlineKeyboardButton("Викторина", callback_data="victor")],
         [InlineKeyboardButton("Настройки", callback_data="settings")],
-        [InlineKeyboardButton("Подготовка к экзамену", callback_data="settings")],
+        [InlineKeyboardButton(
+                "Создать Ввопросы к контрольной", callback_data="kontrol"
+            )
+        ],
     ]
     markup = InlineKeyboardMarkup(keyboard)
     query = update.callback_query
-    if query and query.data[-1] != '.':
+    if query and query.data[-1] != ".":
         await query.edit_message_text(
             text="Выбери, что ты хочешь сделать?",
             reply_markup=markup,
@@ -63,8 +66,9 @@ async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer("Вы зашли в настройки", show_alert=True)
 
-    keyboard = [[InlineKeyboardButton("Поменять класс", callback_data="change_class")],
-                [InlineKeyboardButton("Назад", callback_data="back")]
+    keyboard = [
+        [InlineKeyboardButton("Поменять класс", callback_data="change_class")],
+        [InlineKeyboardButton("Назад", callback_data="back")],
     ]
     markup = InlineKeyboardMarkup(keyboard)
     class_user = update.effective_message.text
