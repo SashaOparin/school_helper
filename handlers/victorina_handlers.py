@@ -89,7 +89,6 @@ async def ask_question(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     return GET_VICTOR_ANSWER
 
-
 async def get_ansver(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     query = update.callback_query

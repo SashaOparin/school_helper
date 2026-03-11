@@ -1,0 +1,2 @@
+Команда для скачивания бд
+ 		scp root@82.97.246.158:/root/sasha_oparin/school_helper/lead.db ./temp

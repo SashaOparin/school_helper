@@ -22,7 +22,7 @@ from handlers.gpt_handlers import start_gpt, ask_gpt
 from handlers.victorina_handlers import victor_asver, victor_topic, back, get_ansver
 
 from handlers.trening_handlers import start_kontrol,hp_kontrol, handle_text_answer
-from handlers.whisper import handle_voice_answer
+# from handlers.whisper import handle_voice_answer
 
 from config.states import (
     GET_CLASS,
@@ -35,6 +35,7 @@ from config.states import (
     GET_KONTROL_ANSWER
 )
 from db.database import create_tables
+from handlers.whisper import transcribe_voice
 
 # =====================================================================
 load_dotenv()
@@ -90,7 +91,8 @@ if __name__ == "__main__":
                 MessageHandler(filters.TEXT & ~filters.COMMAND, hp_kontrol),
             ],
             GET_KONTROL_ANSWER:[
-                MessageHandler(filters.VOICE, handle_voice_answer), MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_answer)
+                MessageHandler(filters.VOICE, transcribe_voice), 
+                MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_answer)
             ]
         },
         fallbacks=[CommandHandler("start", start)],  # то что будет всегда работать
