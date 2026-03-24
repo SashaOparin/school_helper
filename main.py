@@ -22,7 +22,7 @@ from handlers.gpt_handlers import start_gpt, ask_gpt
 from handlers.victorina_handlers import victor_asver, victor_topic, back, get_ansver
 
 from handlers.trening_handlers import start_kontrol,hp_kontrol, handle_text_answer
-# from handlers.whisper import handle_voice_answer
+from handlers.whisper import handle_voice
 
 from config.states import (
     GET_CLASS,
@@ -91,8 +91,9 @@ if __name__ == "__main__":
                 MessageHandler(filters.TEXT & ~filters.COMMAND, hp_kontrol),
             ],
             GET_KONTROL_ANSWER:[
-                MessageHandler(filters.VOICE, transcribe_voice), 
-                MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_answer)
+                MessageHandler(filters.VOICE, handle_voice), 
+                MessageHandler(filters.TEXT & ~filters.COMMAND, handle_text_answer),
+                CallbackQueryHandler(back, pattern="back"),
             ]
         },
         fallbacks=[CommandHandler("start", start)],  # то что будет всегда работать

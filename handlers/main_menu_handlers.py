@@ -41,7 +41,7 @@ async def main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("Викторина", callback_data="victor")],
         [InlineKeyboardButton("Настройки", callback_data="settings")],
         [InlineKeyboardButton(
-                "Создать Ввопросы к контрольной", callback_data="kontrol"
+                "Создать вопросы к контрольной", callback_data="kontrol"
             )
         ],
     ]
