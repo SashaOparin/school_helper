@@ -39,7 +39,7 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # Здесь уже делаешь запрос в гпт.
     client = AsyncOpenAI()
     await context.bot.send_message(
-        chat_id=update.effective_chat.id, text="Ушёл за ответом, скоро вернусь "
+        chat_id=update.effective_chat.id, text="Создаю вопросы для контрольной."
     )
     response = await client.responses.create(
         model="gpt-5-mini",
@@ -48,8 +48,8 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
             {
                 "role": "developer",
                 "content": f"Ты ассистент школьника {context.user_data['class_user']} класса, {topic_predmet_kontrol} вот тема и предмет по которому будет контрольная ученика."
-                           f'Cоставь достаточное количество вопросов ((старайся что бы их было как можно меньше,желательно около 20) НЕ ВТЫКАЙ 2 ВОПРОСА В 1),что бы если он знал ответы на них с высокой долей вероятности получил 5 за контрольную. В ответе дай список вопросов в формате'
-                           'вопрос1;вопрос2. Пиши только вопросы, ничего кроме них не пиши.В ОТВЕТЕ НЕ БОЛЬШЕ ЧЕМ 1024 СИМВОЛОВ ПИШИ.',
+                           f'Cоставь достаточное количество вопросов ((старайся что бы их было как можно меньше,желательно около 20) НЕ ВТЫКАЙ 2 ВОПРОСА В 1),что бы если он знал ответы на них с высокой долей вероятности получил 5 за контрольную.'
+                           f'В ответе дай список вопросов в формате:вопрос1;вопрос2. Пиши только вопросы, ничего кроме них не пиши.В ОТВЕТЕ НЕ БОЛЬШЕ ЧЕМ 1024 СИМВОЛОВ ПИШИ.',
             },
         ],
     )
@@ -66,12 +66,50 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text += f"{i+1}. {question}\n"
 
     text += "\nНиже ответы по которым ты можешь себя проверить."
-
+# <tg-spoiler>Скрытый</tg-spoiler>
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=text,
         reply_markup=markup,
     )
+    #-----------------
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id, text="Создаю ответы для контрольной."
+    )
+    response = await client.responses.create(
+        model="gpt-5-mini",
+        # instructions="Ты ассистент школьника, ты должен не давать точный ответ, а давать то, после чего школьник подумал и сам всё сделал.",
+        input=[
+            {
+                "role": "developer",
+                "content": f"Ты ассистент школьника {context.user_data['class_user']} класса,дай ответы на эти вопросы: {answer_text}."
+                           f' Пиши только ответы(СТАРАЙСЯ ЧТОБЫ БЫЛО ПОНЯТНО, НО КРАТКО), ничего кроме них не пиши.Ответы пиши в формате 1. ответ, новая строка 2. ответ и так далее.'
+                           f' В ОТВЕТЕ НЕ БОЛЬШЕ ЧЕМ 1024 СИМВОЛОВ ПИШИ.',
+            },
+        ],
+    )
+    answer_text = response.output_text
+    question_of_kontrol = answer_text.split(";")
+    keyboard = [
+        [InlineKeyboardButton("Назад", callback_data="back")],
+    ]
+    markup = InlineKeyboardMarkup(keyboard)
+    
+    print(question_of_kontrol, "вот вопросы для контрольной")
+    text = "Вот вопросы для контрольной:\n"
+    for i , question in enumerate (question_of_kontrol):
+        text += f"{i+1}. {question}\n"
+
+    text += "\nНиже ответы по которым ты можешь себя проверить."
+# <tg-spoiler>Скрытый</tg-spoiler>
+    await context.bot.send_message(
+        chat_id=update.effective_chat.id,
+        text=text,
+        reply_markup=markup,
+    )
+
+
+
     return GET_KONTROL_ANSWER
 
 
