@@ -74,7 +74,7 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     #-----------------
     await context.bot.send_message(
-        chat_id=update.effective_chat.id, text="Создаю ответы для контрольной."
+        chat_id=update.effective_chat.id, text="Вот ответы по которым ты можешь себя проверить."
     )
     response = await client.responses.create(
         model="gpt-5-mini",
@@ -83,8 +83,10 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
             {
                 "role": "developer",
                 "content": f"Ты ассистент школьника {context.user_data['class_user']} класса,дай ответы на эти вопросы: {answer_text}."
-                           f' Пиши только ответы(СТАРАЙСЯ ЧТОБЫ БЫЛО ПОНЯТНО, НО КРАТКО), ничего кроме них не пиши.Ответы пиши в формате 1. ответ, новая строка 2. ответ и так далее.'
-                           f' В ОТВЕТЕ НЕ БОЛЬШЕ ЧЕМ 1024 СИМВОЛОВ ПИШИ.',
+                           f' Пиши только ответы(СТАРАЙСЯ ЧТОБЫ БЫЛО ПОНЯТНО, НО КРАТКО), ничего кроме них не пиши.Ответы пиши в формате 1. ####, новая строка 2. #### и так далее.'
+                           f'В ОТВЕТЕ НЕ БОЛЬШЕ ЧЕМ 1024 СИМВОЛОВ ПИШИ.НЕ ИСПОЛЬЗУЙ НИКАКИХ ЗНАКОВ ПРИПИНАНИЯ,КРОМЕ НОВОЙ СТРОКИ И ТОЧКИ ПОСЛЕ НОМЕРА ВОПРОСА.'
+                           f'НЕ ИСПОЛЬЗУЙ НИКАКИХ ЗНАКОВ ПРИПИНАНИЯ,КРОМЕ НОВОЙ СТРОКИ.'
+                           f'ТЕКСТ ОТВЕТА ПОСТАВЬ ВОТ ТАК ||####|| , ОБЯЗАТЕЛЬНО ОБЕРНИ ТЕКС В ЭТИ 2 ПАЛКИ.',
             },
         ],
     )
@@ -98,9 +100,7 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(question_of_kontrol, "вот вопросы для контрольной")
     text = "Вот вопросы для контрольной:\n"
     for i , question in enumerate (question_of_kontrol):
-        text += f"{i+1}. {question}\n"
-
-    text += "\nНиже ответы по которым ты можешь себя проверить."
+        text += f"{i+1}. {question}"
 # <tg-spoiler>Скрытый</tg-spoiler>
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
