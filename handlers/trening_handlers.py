@@ -84,7 +84,7 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
                 "role": "developer",
                 "content": f"Ты ассистент школьника {context.user_data['class_user']} класса,дай ответы на эти вопросы: {answer_text}."
                            f' Пиши только ответы(СТАРАЙСЯ ЧТОБЫ БЫЛО ПОНЯТНО, НО КРАТКО), ничего кроме них не пиши.Ответы пиши в формате 1. ####, новая строка 2. #### и так далее, номер 1 вопроса не пиши но сам текс пиши.'
-                           f'В ОТВЕТЕ НЕ БОЛЬШЕ ЧЕМ 1024 СИМВОЛОВ ПИШИ.НЕ ИСПОЛЬЗУЙ НИКАКИХ ЗНАКОВ ПРИПИНАНИЯ,КРОМЕ НОВОЙ СТРОКИ И ТОЧКИ ПОСЛЕ НОМЕРА ВОПРОСА.'
+                           f'В ОТВЕТЕ НЕ БОЛЬШЕ ЧЕМ 1024 СИМВОЛОВ ПИШИ.НЕ ИСПОЛЬЗУЙ НИКАКИХ ЗНАКОВ ПРИПИНАНИЯ,КРОМЕ НОВОЙ СТРОКИ И ТОЧКИ ПОСЛЕ НОМЕРА ВОПРОСА.Но пиши грамотно, без любых ошибок.'
                            f'НЕ ИСПОЛЬЗУЙ НИКАКИХ ЗНАКОВ ПРИПИНАНИЯ,КРОМЕ НОВОЙ СТРОКИ.'
                            f'Ответы должны быть оформлены в скрытом формате, например: <tg-spoiler>текст ответа</tg-spoiler>.',
                            #f'ТЕКСТ ОТВЕТА ПОСТАВЬ ВОТ ТАК ||####|| , ОБЯЗАТЕЛЬНО ОБЕРНИ ТЕКС В ЭТИ 2 ПАЛКИ.',
@@ -103,7 +103,7 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
     for i , question in enumerate (question_of_kontrol):
 #         # text += f"{i + 1}. <tg-spoiler>{question}</tg-spoiler>"#n"
         text += f"{i+1}. {question}"
- ###    text += f"{i + 1}. <tg-spoiler>{question} {i + 1}</tg-spoiler>"#n" пока это самый рабочий вариант 
+# ###text += f"{i + 1}. <tg-spoiler>{question} {i + 1}</tg-spoiler>"#n" пока это самый рабочий вариант 
 # # <tg-spoiler>Скрытый</tg-spoiler>
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
