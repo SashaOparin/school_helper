@@ -74,7 +74,7 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     #-----------------
     await context.bot.send_message(
-        chat_id=update.effective_chat.id, text="Вот ответы по которым ты можешь себя проверить."
+        chat_id=update.effective_chat.id, text="Создаю ответы."
     )
     response = await client.responses.create(
         model="gpt-5-mini",
@@ -83,10 +83,11 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
             {
                 "role": "developer",
                 "content": f"Ты ассистент школьника {context.user_data['class_user']} класса,дай ответы на эти вопросы: {answer_text}."
-                           f' Пиши только ответы(СТАРАЙСЯ ЧТОБЫ БЫЛО ПОНЯТНО, НО КРАТКО), ничего кроме них не пиши.Ответы пиши в формате 1. ####, новая строка 2. #### и так далее.'
+                           f' Пиши только ответы(СТАРАЙСЯ ЧТОБЫ БЫЛО ПОНЯТНО, НО КРАТКО), ничего кроме них не пиши.Ответы пиши в формате 1. ####, новая строка 2. #### и так далее, номер 1 вопроса не пиши но сам текс пиши.'
                            f'В ОТВЕТЕ НЕ БОЛЬШЕ ЧЕМ 1024 СИМВОЛОВ ПИШИ.НЕ ИСПОЛЬЗУЙ НИКАКИХ ЗНАКОВ ПРИПИНАНИЯ,КРОМЕ НОВОЙ СТРОКИ И ТОЧКИ ПОСЛЕ НОМЕРА ВОПРОСА.'
                            f'НЕ ИСПОЛЬЗУЙ НИКАКИХ ЗНАКОВ ПРИПИНАНИЯ,КРОМЕ НОВОЙ СТРОКИ.'
-                           f'ТЕКСТ ОТВЕТА ПОСТАВЬ ВОТ ТАК ||####|| , ОБЯЗАТЕЛЬНО ОБЕРНИ ТЕКС В ЭТИ 2 ПАЛКИ.',
+                           f'Ответы должны быть оформлены в скрытом формате, например: <tg-spoiler>текст ответа</tg-spoiler>.',
+                           #f'ТЕКСТ ОТВЕТА ПОСТАВЬ ВОТ ТАК ||####|| , ОБЯЗАТЕЛЬНО ОБЕРНИ ТЕКС В ЭТИ 2 ПАЛКИ.',
             },
         ],
     )
@@ -97,19 +98,19 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ]
     markup = InlineKeyboardMarkup(keyboard)
     
-    print(question_of_kontrol, "вот вопросы для контрольной")
-    text = "Вот вопросы для контрольной:\n"
+    print(question_of_kontrol)
+    text = "Вот ответы по которым ты можешь себя проверить:\n"
     for i , question in enumerate (question_of_kontrol):
+#         # text += f"{i + 1}. <tg-spoiler>{question}</tg-spoiler>"#n"
         text += f"{i+1}. {question}"
-# <tg-spoiler>Скрытый</tg-spoiler>
+ ###    text += f"{i + 1}. <tg-spoiler>{question} {i + 1}</tg-spoiler>"#n" пока это самый рабочий вариант 
+# # <tg-spoiler>Скрытый</tg-spoiler>
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=text,
         reply_markup=markup,
-    )
-
-
-
+        parse_mode="HTML",
+    )   
     return GET_KONTROL_ANSWER
 
 
