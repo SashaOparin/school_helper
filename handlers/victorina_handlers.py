@@ -25,7 +25,7 @@ async def victor_topic(update: Update, context: ContextTypes.DEFAULT_TYPE):
     markup = InlineKeyboardMarkup(keyboard)
 
     await query.edit_message_text(
-        text="Введите название темы, на которую вы хотите викторину.",
+        text="Введите название темы для викторины",
         reply_markup=markup,
     )
 

@@ -37,25 +37,22 @@ async def get_users_class(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [
+        [InlineKeyboardButton("Поменять класс", callback_data="settings")],
         [InlineKeyboardButton("Спросить у Ассистента", callback_data="gpt_ask")],
         [InlineKeyboardButton("Викторина", callback_data="victor")],
-        [InlineKeyboardButton("Настройки", callback_data="settings")],
-        [InlineKeyboardButton(
-                "Создать вопросы к контрольной", callback_data="kontrol"
-            )
-        ],
+        [InlineKeyboardButton("Подготовиться к контрольной", callback_data="kontrol")],
     ]
     markup = InlineKeyboardMarkup(keyboard)
     query = update.callback_query
     if query and query.data[-1] != ".":
         await query.edit_message_text(
-            text="Выбери, что ты хочешь сделать?",
+            text="Выберите, что вы хотите сделать.",
             reply_markup=markup,
         )
     else:
         await context.bot.send_message(
             chat_id=update.effective_chat.id,
-            text="Выбери, что ты хочешь сделать?",
+            text="Выберите, что вы хотите сделать",
             reply_markup=markup,
         )
     return MAIN_MENU
@@ -84,7 +81,7 @@ async def change_class(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
 
-    await query.edit_message_text("Введите новый класс.")
+    await query.edit_message_text("Введите новый класс")
     return GET_CLASS
 
 
