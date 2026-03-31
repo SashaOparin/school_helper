@@ -61,7 +61,7 @@ async def main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # -----------------------------------------------------------------------------
 async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
-    await query.answer("Вы зашли в настройки", show_alert=True)
+    await query.answer("Вы зашли в смену класса")#, show_alert=True)
 
     keyboard = [
         [InlineKeyboardButton("Поменять класс", callback_data="change_class")],

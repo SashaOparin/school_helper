@@ -68,7 +68,7 @@ if __name__ == "__main__":
                 MessageHandler(filters.Regex("Настройки"), settings),
                 CallbackQueryHandler(start_gpt, pattern="gpt_ask"),
                 CallbackQueryHandler(victor_topic, pattern="victor"),
-                CallbackQueryHandler(settings, pattern="settings"),
+                CallbackQueryHandler(change_class, pattern="settings"),
                 CallbackQueryHandler(start_kontrol, pattern="kontrol"),
             ],
             GPT: [
