@@ -23,7 +23,7 @@ async def start_gpt(update: Update, context: ContextTypes.DEFAULT_TYPE):
     markup = InlineKeyboardMarkup(keyboard)
 
     await query.edit_message_text(
-        text="Вы зашли в ассистента.  вопрос.",
+        text="Вы зашли в ассистента. Задайтевопрос.",
         reply_markup=markup,
     )
     return GPT
