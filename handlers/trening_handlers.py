@@ -56,10 +56,10 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     answer_text = response.output_text
     question_of_kontrol = answer_text.split(";")
-    keyboard = [
-        [InlineKeyboardButton("Назад", callback_data="back")],
-    ]
-    markup = InlineKeyboardMarkup(keyboard)
+    # keyboard = [
+    #     [InlineKeyboardButton("Назад", callback_data="back")],
+    # ]
+    # markup = InlineKeyboardMarkup(keyboard)
     
     print(question_of_kontrol, "вот вопросы для контрольной")
     text = "Вот вопросы для контрольной:\n"
@@ -71,7 +71,7 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=text,
-        reply_markup=markup,
+        # reply_markup=markup,
     )
     #-----------------
     await context.bot.send_message(
