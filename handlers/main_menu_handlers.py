@@ -68,7 +68,7 @@ async def settings(update: Update, context: ContextTypes.DEFAULT_TYPE):
         [InlineKeyboardButton("Назад", callback_data="back")],
     ]
     markup = InlineKeyboardMarkup(keyboard)
-    class_user = update.effective_message.text
+    class_user = update.effective_message.text 
     await query.edit_message_text(
         text=f"Ваш класс: {class_user}",
         reply_markup=markup,

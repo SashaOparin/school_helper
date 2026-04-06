@@ -24,13 +24,6 @@ async def update_user(id_tg: int, class_num: int):
         await db.commit()
         return True
 
-# async def victorins(id_tg: int):
-#     async with  aiosqlite.connect("lead.db") as db:
-#         db.row_factory = aiosqlite.Row
-#         cursor = await db.execute("SELECT * FROM users WHERE id_tg = ?", (victorins,))
-#         user = await cursor.fetchone()
-#         if user:
-#             return dict(user)
         
 async def create_victorina(id_tg: int, victorina: str, answer: str, topic: str):
     conn = await aiosqlite.connect("lead.db")

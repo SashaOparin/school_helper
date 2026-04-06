@@ -1,9 +1,6 @@
 from openai import AsyncOpenAI
 from telegram import InlineKeyboardMarkup
 
-# ===========================
-
-
 from handlers.victorina_handlers import back
 from telegram import (
     Update,
@@ -56,10 +53,7 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
     
     answer_text = response.output_text
     question_of_kontrol = answer_text.split(";")
-    # keyboard = [
-    #     [InlineKeyboardButton("Назад", callback_data="back")],
-    # ]
-    # markup = InlineKeyboardMarkup(keyboard)
+  
     
     print(question_of_kontrol, "вот вопросы для контрольной")
     text = "Вот вопросы для контрольной:\n"
@@ -103,11 +97,9 @@ async def hp_kontrol(update: Update, context: ContextTypes.DEFAULT_TYPE):
     print(question_of_kontrol)
     text = "Ответы по которым ты можешь себя проверить:\n"
     for i , question in enumerate (question_of_kontrol):
-#         # text += f"{i + 1}. <tg-spoiler>{question}</tg-spoiler>"#n"
+
         text += question
-        # text += f"{i+1}. {question}"
-# ###text += f"{i + 1}. <tg-spoiler>{question} {i + 1}</tg-spoiler>"#n" пока это самый рабочий вариант 
-# # <tg-spoiler>Скрытый</tg-spoiler>
+
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=text,

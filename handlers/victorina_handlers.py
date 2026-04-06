@@ -12,8 +12,6 @@ from config.states import GET_VICTOR_TOPIC, GET_VICTOR_ANSWER
 import json
 from db.victorina_crud import create_victorina, get_victorina
 from handlers.main_menu_handlers import main_menu
-
-
 # ---------------------------------------------------------------------------
 async def victor_topic(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
@@ -121,11 +119,7 @@ async def get_ansver(update: Update, context: ContextTypes.DEFAULT_TYPE):
         ]
         markup = InlineKeyboardMarkup(keyboard)
         
-    
-        # await context.bot.send_message(
-        #     chat_id=update.effective_chat.id, text="Неправильный ответ"
-        # )
-
+     
     context.user_data["num_quest"] += 1
     context.user_data['last_quest_id'] = query.message.id
     if context.user_data["num_quest"] < len(question_list):
@@ -136,11 +130,6 @@ async def get_ansver(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
 
         return await main_menu(update, context) 
-
-
-
-
-    
 
 
 # -----------------------------------------------------------
