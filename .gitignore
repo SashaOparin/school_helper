@@ -6,3 +6,4 @@ lead.db
 test.ipynb
 test.py
 env
+.DS_Store
