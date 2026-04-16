@@ -11,12 +11,7 @@ from db.users_crud import create_user, get_user
 
 
 # ---------------------------------------------------------
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    user = await get_user(update.effective_user.id)
-    if not user:
-        await create_user(update.effective_user.id, update.effective_user.username)
-        user = await get_user(update.effective_user.id)   
+async def start(update: Update, context: ConteООООffective_user.id)   
 
     await update.message.delete()
     if context.user_data.get("class_user") or user["class"]:
@@ -25,6 +20,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await context.bot.send_message(
         chat_id=update.effective_chat.id,
         text=f"Привет, {update.effective_user.first_name}\nВ каком классе ты учишься?",
-    )
+    )J
+
+
+    6J6
+    ';ORA1df'
     
     return GET_CLASS

@@ -59,6 +59,7 @@ async def generate_and_send_answer(
         ]
         + message_history
         + [{"role": "user", "content": m_text}],
+        tools=[{"type": "web_search"}],
     )
     answer_text = response.output_text
     message_history.append({"role": "user", "content": m_text})
@@ -67,7 +68,7 @@ async def generate_and_send_answer(
 
     keyboard = [[InlineKeyboardButton("Назад", callback_data="back")]]
     markup = InlineKeyboardMarkup(keyboard)
-    
+
     await context.bot.edit_message_text(
         chat_id=chat_id,
         message_id=message_id,
