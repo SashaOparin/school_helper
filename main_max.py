@@ -5,7 +5,7 @@ import os
 from dotenv import load_dotenv
 
 from maxapi import Bot, Dispatcher, F
-from maxapi.types import Command
+from maxapi.types import BotStarted, Command
 
 from db.database import create_tables
 from max_handlers.gpt_handlers import ask_gpt, start_gpt
@@ -23,10 +23,14 @@ dp = Dispatcher()
 set_bot(bot)
 
 
-# Создаем таблицы при старте MAX-бота
-@dp.on_started()
-async def on_started():
+  
+@dp.bot_started()
+async def bot_started(event: BotStarted):
     await create_tables(None)
+    await event.bot.send_message(
+        chat_id=event.chat_id,
+        text='Привет! Отправь мне /start'
+    )
 
 
 # Регистрируем обработчики, как в Telegram-версии
